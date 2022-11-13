@@ -135,3 +135,7 @@ log.txt
 uploads/
 readings/
 rain.txt
+
+.vscode
+.picowgo
+node_modules
