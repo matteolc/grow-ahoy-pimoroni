@@ -46,3 +46,8 @@ auto_water = False
 moisture_target_1 = 50
 moisture_target_2 = 50
 moisture_target_3 = 50
+
+# Grow-Ahoy API settings
+grow_ahoy_api_key = None
+grow_ahoy_station_uuid = None
+grow_ahoy_unit_uuid = None

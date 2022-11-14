@@ -53,7 +53,7 @@ logging.info("> creating web server...")
 
 @server.route("/wrong-host-redirect", methods=["GET"])
 def wrong_host_redirect(request):
-  # if the client requested a resource at the wrong host then present 
+  # if the client requested a resource at the wrong host then present
   # a meta redirect so that the captive portal browser can be sent to the correct location
   body = f"<!DOCTYPE html><head><meta http-equiv=\"refresh\" content=\"0;URL='http://{DOMAIN}/provision-welcome'\" /></head>"
   return body
@@ -84,7 +84,7 @@ def provision_step_2_wifi(request):
     return redirect(f"http://{DOMAIN}/provision-step-3-logging")
   else:
     return render_template("enviro/html/provision-step-2-wifi.html", board=model)
-  
+
 
 @server.route("/provision-step-3-logging", methods=["GET", "POST"])
 def provision_step_3_logging(request):
@@ -95,7 +95,7 @@ def provision_step_3_logging(request):
     return redirect(f"http://{DOMAIN}/provision-step-4-destination")
   else:
     return render_template("enviro/html/provision-step-3-logging.html", board=model)
-    
+
 
 @server.route("/provision-step-4-destination", methods=["GET", "POST"])
 def provision_step_4_destination(request):
@@ -121,13 +121,18 @@ def provision_step_4_destination(request):
     config.influxdb_url = request.form["influxdb_url"]
     config.influxdb_token = request.form["influxdb_token"]
     config.influxdb_bucket = request.form["influxdb_bucket"]
-    
+
+    # Grow Ahoy
+    config.grow_ahoy_api_key = request.form["grow_ahoy_api_key"]
+    config.grow_ahoy_station_uuid = request.form["grow_ahoy_station_uuid"]
+    config.grow_ahoy_unit_uuid = request.form["grow_ahoy_unit_uuid"]
+
     write_config()
 
     return redirect(f"http://{DOMAIN}/provision-step-5-done")
   else:
     return render_template("enviro/html/provision-step-4-destination.html", board=model)
-    
+
 
 @server.route("/provision-step-5-done", methods=["GET", "POST"])
 def provision_step_5_done(request):
@@ -141,7 +146,7 @@ def provision_step_5_done(request):
     return
 
   return render_template("enviro/html/provision-step-5-done.html", board=model)
-    
+
 
 @server.route("/networks.json")
 def networks(request):
@@ -166,7 +171,7 @@ def catchall(request):
     return serve_file(file)
 
   return "404 Not Found Buddy!", 404
-  
+
 
 # wait for a client to connect
 logging.info("> waiting for a client to connect")
